@@ -19,7 +19,6 @@ vagrant provision
 
 
 ```sh
-
 git clone git@github.com:awesome-devops-and-cd/vagrant-docker-ansible-playground.git
 
 git pull --rebase origin master
