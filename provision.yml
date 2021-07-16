@@ -1,7 +1,9 @@
 - hosts: all
   vars:
-    users: []
-  tasks:
-    - name: "ping"
-      ping:
-        data: "pong"
+    users:
+    - name: ivoputzer
+      comment: Ivo von Putzer Reibegg
+      password: $6$IdVtXdaOmTYWw7xW$jQvaLuYWJobdC/k1dzmY61wyvYF1YLEl4AVzqUxAVVUik5HqflLbgI/ALnRsKBNPfgOzRw03zs742lo9HwYP.1
+      state: present
+  roles:
+  - role: users
