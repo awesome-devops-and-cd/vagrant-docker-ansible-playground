@@ -1,0 +1,7 @@
+- hosts: all
+  vars:
+    users: []
+  tasks:
+    - name: "ping"
+      ping:
+        data: "pong"
