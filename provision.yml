@@ -7,3 +7,4 @@
       state: present
   roles:
   - role: users
+  - role: docker

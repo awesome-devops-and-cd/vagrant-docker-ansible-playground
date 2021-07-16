@@ -1,0 +1,72 @@
+- name: Ensure obsolete docker versions are not installed
+  package:
+    name:
+    - docker
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+    state: absent
+
+- name: Ensure docker apt dependencies are present
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - python3-pip
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Ensure docker python dependencies are present
+  pip:
+    name: docker
+    executable: pip3
+
+- name: Add docker apt key
+  ansible.builtin.apt_key:
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+  register: add_repository_key
+  ignore_errors: true
+
+- name: Add docker apt repository
+  apt_repository:
+    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable
+    state: present
+    update_cache: true
+
+- name: Install docker
+  package:
+    name:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    state: present
+  notify: restart docker
+
+- name: Enable a docker.service on start
+  ansible.builtin.systemd:
+    name: docker.service
+    state: started
+    enabled: yes
+
+- name: Enable containerd.service on start
+  ansible.builtin.systemd:
+    name: containerd.service
+    state: started
+    enabled: yes
+
+- name: Ensure docker users are added to the docker group
+  user:
+    name: "{{ item.name }}"
+    groups: docker
+    append: true
+    state: "{{ item.state }}"
+  with_items: "{{ users }}"
+
