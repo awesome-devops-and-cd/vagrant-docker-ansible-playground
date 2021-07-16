@@ -1,0 +1,37 @@
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+    ansible_become: true
+    ansible_become_user: "root"
+    users:
+    - name: ivoputzer
+      comment: Ivo von Putzer Reibegg
+      password: $6$IdVtXdaOmTYWw7xW$jQvaLuYWJobdC/k1dzmY61wyvYF1YLEl4AVzqUxAVVUik5HqflLbgI/ALnRsKBNPfgOzRw03zs742lo9HwYP.1
+      state: present
+    - name: lorenzoberetta92
+      comment: Lorenzo Beretta
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+      state: present
+    - name: mrVerna
+      comment: Francesco Vernacchia
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+      state: present
+    - name: nicolamscarpa
+      comment: Nicola Maria Scarpa
+      password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
+      state: present
+    - name: andreagalli95
+      comment: Andrea Galli
+      password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
+      state: present
+    - name: danielescorsino
+      comment: Daniele Scorsino
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+      state: present
+    - name: edonadini
+      comment: Eleonora Donadini
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+      state: present
+  roles:
+  - role: users
+  - role: docker
